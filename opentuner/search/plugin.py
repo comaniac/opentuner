@@ -121,11 +121,13 @@ class FileDisplayPlugin(SearchPlugin):
     if self.out and result.time < self.last_best:
       self.last_best = result.time
       print((result.collection_date - self.start_date).total_seconds(), \
-          result.time, file=self.out)
+          self.driver.objective.display(result), file=self.out)
       self.out.flush()
     if self.details:
       print((result.collection_date - self.start_date).total_seconds(), \
-          result.time, file=self.details)
+          result.configuration.data,
+          self.driver.objective.display(result), \
+          file=self.details)
       self.details.flush()
 
 def get_enabled(args):
